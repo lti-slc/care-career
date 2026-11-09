@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Could you care for a living? | South Lanarkshire College</title>
+<style>
+:root{--bg:#f6f4fb;--card:#fff;--tx:#1d1b2e;--mut:#5f5b78;--bd:#dcd8ec;--soc:#7c3aed;--nur:#0891b2;--ok:#16a34a;--bad:#dc2626;--mid:#d97706;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14121f;--card:#1f1c30;--tx:#f1eefc;--mut:#b0abcc;--bd:#38335a}}
+:root[data-theme="dark"]{--bg:#14121f;--card:#1f1c30;--tx:#f1eefc;--mut:#b0abcc;--bd:#38335a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.45}
+main{max-width:520px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:1.7rem;margin:.2em 0}
+h2{font-size:1.3rem;margin:.3em 0}
+p{margin:.5em 0}
+.mut{color:var(--mut);font-size:.9rem}
+.card{background:var(--card);border:2px solid var(--bd);border-radius:16px;padding:16px;margin:12px 0}
+button{font:inherit;color:inherit;cursor:pointer}
+.big{display:block;width:100%;text-align:left;border-radius:16px;border:2px solid var(--bd);background:var(--card);padding:16px;margin:12px 0}
+.big:active{transform:scale(.98)}
+.big b{font-size:1.15rem}
+.opt{display:block;width:100%;text-align:left;border-radius:14px;border:2px solid var(--bd);background:var(--card);padding:14px;margin:10px 0;font-size:1rem}
+.opt:disabled{cursor:default}
+.opt.good{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 15%,var(--card))}
+.opt.mid{border-color:var(--mid);background:color-mix(in srgb,var(--mid) 15%,var(--card))}
+.opt.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 15%,var(--card))}
+.go{background:var(--acc);color:#fff;border:0;border-radius:999px;padding:12px 24px;font-weight:700;font-size:1rem;margin-top:8px}
+.ghost{background:none;border:2px solid var(--bd);border-radius:999px;padding:10px 18px;margin:6px 6px 0 0}
+.bar{height:10px;border-radius:99px;background:var(--bd);overflow:hidden;margin:8px 0 14px}
+.bar i{display:block;height:100%;background:var(--acc);transition:width .3s}
+.fb{margin-top:10px;padding:12px;border-radius:12px;background:var(--bg);border:1px solid var(--bd)}
+.emoji{font-size:3rem;text-align:center}
+.cta{background:linear-gradient(135deg,var(--soc),var(--nur));color:#fff;border-radius:16px;padding:16px;margin:16px 0}
+.pat{font-weight:700}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+var G={
+social:{acc:"#7c3aed",icon:"🤝",title:"Walk in Their Shoes",sub:"Social Work challenge",
+intro:"You're a trainee social worker. Five people need your help. Pick the response a great social worker would give. Be kind, be honest, be brave!",
+steps:[
+{q:"A young person at a youth club is sitting alone, looking upset. What do you do?",o:[
+["Tell them to cheer up, it can't be that bad",0,"Dismissing feelings makes people shut down. Social workers never minimise how someone feels."],
+["Sit nearby and say, “I'm here if you want a chat, no pressure”",2,"Brilliant! Offering time and space lets them choose when to talk. That builds trust."],
+["Ask loads of questions straight away",1,"Good intentions, but too many questions can feel overwhelming. Let them set the pace."]]},
+{q:"Mr Brown is 82, lives alone and says he feels lonely and struggles with shopping. What's your approach?",o:[
+["Decide he should move into a care home",0,"Social workers support people to make their own choices, and never decide for them."],
+["Ask what matters to him, then link him with befriending and shopping help",2,"Spot on! This is “person-centred” support: his life, his choices, with the right help around him."],
+["Do his shopping yourself every week forever",1,"Kind, but not sustainable. Connecting him with community support helps for the long term."]]},
+{q:"A parent is embarrassed because the family is struggling with money. What do you say?",o:[
+["Give a lecture on budgeting",0,"Judgement pushes people away. Most families struggling with money are doing their best."],
+["Listen without judging and connect them to money advice and support",2,"Yes! Respect and practical help. Social workers build on people's strengths."],
+["Say there's nothing anyone can do",0,"There's nearly always support available. Knowing where to find it is a social worker superpower."]]},
+{q:"A child tells you something worrying, then says, “Promise you won't tell anyone.”",o:[
+["Promise to keep it secret",0,"Never promise secrecy when someone's safety is at stake."],
+["Say you can't promise, but thank them for trusting you and explain you'll get them help",2,"Exactly right. Honesty, kindness and keeping children safe always come first."],
+["Change the subject",0,"They've been brave to speak up. Ignoring it could leave them at risk."]]},
+{q:"You disagree with a colleague about a plan for a family. What now?",o:[
+["Talk it through respectfully, focusing on what's best for the family",2,"Great teamwork! Social workers share views, listen, and keep the person at the centre."],
+["Complain to others behind their back",0,"Gossip damages trust in a team and doesn't help the family."],
+["Say nothing and hope for the best",1,"It's tough to speak up, but good teams talk openly. Supervision exists for this."]]}],
+res:[[0,"Rising Listener 🌱","Every great social worker starts somewhere. Training builds these skills."],[50,"Community Champion 🌟","Strong instincts for kindness and fairness!"],[85,"Natural Social Worker 🏆","Wow! Empathy, honesty and respect. You'd be brilliant in this career."]]},
+nursing:{acc:"#0891b2",icon:"🩺",title:"Ward Round Rush",sub:"Nursing challenge",
+intro:"You're the nurse in charge. Four rounds of ‘who do I see first?’, then three quick-fire questions. Think fast, prioritise safely!",
+steps:[
+{q:"Round 1: Three patients need you. Who first?",o:[
+["Sam, 8: scraped knee, wants a plaster",0,"Sam needs a plaster, but can wait a minute. Not urgent."],
+["Mr Khan: sudden chest pain and sweating",2,"Correct! Chest pain with sweating could be a heart emergency. Immediate care."],
+["Mrs Lee: would love a cup of tea",0,"Tea matters for comfort, but it isn't urgent."]]},
+{q:"Round 2: Who first?",o:[
+["Tom: bored, waiting for his discharge letter",0,"Waiting is frustrating, but he's stable."],
+["Mr Reid: sore ankle after football, comfortable at rest",1,"Needs checking, but he's stable. Not the most urgent."],
+["Aisha: struggling to breathe, lips look blue-ish",2,"Yes! Breathing problems are always top priority. Airway and breathing come first."]]},
+{q:"Round 3: Who first?",o:[
+["Ella: fainted, now awake but very pale",2,"Right! She needs checking quickly: blood pressure, pulse, and why she fainted."],
+["Greg: needs a hand with his lunch",1,"Important for his care, but he's safe right now."],
+["A visitor asking where the toilets are",0,"Friendly directions are lovely, but another team member can help."]]},
+{q:"Round 4: Who first?",o:[
+["Priya: new, severe headache and confused",2,"Spot on! Sudden confusion with a severe headache needs urgent assessment."],
+["Callum: wants the TV remote",0,"A great excuse for a chat, but not urgent."],
+["Mrs Ford: due her usual tablets in 30 minutes",1,"Medicines matter and are timed, but there's time. Priya can't wait."]]},
+{q:"Quick-fire: what's the best way to stop germs spreading on a ward?",o:[
+["Washing hands properly",2,"Yes! Hand hygiene is one of the most powerful tools in healthcare."],
+["Wearing a nice uniform",0,"Smart uniforms look good, but handwashing does the work."],
+["Opening all the windows",0,"Fresh air is lovely, but handwashing is key."]]},
+{q:"Quick-fire: roughly what's a normal resting heart rate for an adult?",o:[
+["20 to 40 beats per minute",0,"That would be very low."],
+["60 to 100 beats per minute",2,"Correct! Nurses check pulse to understand how someone is doing."],
+["150 to 200 beats per minute",0,"That's very fast, like running flat out."]]},
+{q:"Quick-fire: a patient is scared before an operation. What helps most?",o:[
+["Tell them not to worry",0,"Kind, but it doesn't help them feel heard."],
+["Listen, explain what will happen in simple words, and stay calm and kind",2,"Great! Caring communication is as important as clinical skill."],
+["Leave them to it, you're busy",0,"Fear matters. Taking a moment makes a big difference."]]}],
+res:[[0,"Student Nurse in Training 🌱","Everyone starts here! Training teaches the skills."],[50,"Ward Star ⭐","Calm thinking under pressure. Great instincts!"],[85,"Super Nurse 🏆","Brilliant prioritising and compassion. You'd thrive in nursing."]]}
+};
+var app=document.getElementById("app"),S;
+function el(h){app.innerHTML=h;window.scrollTo(0,0)}
+function home(){
+ el('<div class="emoji">💜🩺</div><h1>Could you care for a living?</h1><p>Pick a challenge, test your instincts, and see which career suits you. Takes about 2 minutes.</p>'+
+ '<button class="big" onclick="start(\'social\')"><b>🤝 Social Work challenge</b><br><span class="mut">Walk in Their Shoes: help people in tricky situations</span></button>'+
+ '<button class="big" onclick="start(\'nursing\')"><b>🩺 Nursing challenge</b><br><span class="mut">Ward Round Rush: who needs you first?</span></button>'+
+ '<p class="mut">South Lanarkshire College · Health &amp; Social Care</p>')}
+function start(k){S={k:k,i:0,pts:0};intro()}
+function intro(){var g=G[S.k];document.documentElement.style.setProperty("--acc",g.acc);
+ el('<div class="emoji">'+g.icon+'</div><h1>'+g.title+'</h1><p class="mut">'+g.sub+'</p><div class="card">'+g.intro+'</div><button class="go" onclick="show()">Let’s go!</button> <button class="ghost" onclick="home()">Back</button>')}
+function show(){var g=G[S.k],s=g.steps[S.i],n=g.steps.length;
+ var h='<p class="mut">Question '+(S.i+1)+' of '+n+' · Score: '+S.pts+'</p><div class="bar"><i style="width:'+(S.i/n*100)+'%"></i></div><h2>'+s.q+'</h2>';
+ s.o.forEach(function(o,j){h+='<button class="opt" onclick="pick('+j+')">'+o[0]+'</button>'});
+ el(h+'<div id="fb"></div>')}
+function pick(j){var g=G[S.k],s=g.steps[S.i],o=s.o[j];S.pts+=o[1];
+ var b=document.querySelectorAll(".opt");
+ b.forEach(function(x,i){x.disabled=true;var v=s.o[i][1];if(i==j||v==2)x.className="opt "+(v==2?"good":v==1?"mid":"bad")});
+ var last=S.i==g.steps.length-1;
+ document.getElementById("fb").innerHTML='<div class="fb"><b>'+(o[1]==2?"✅ Great choice! +2":o[1]==1?"🟠 Not bad! +1":"❌ Not quite. +0")+'</b><br>'+o[2]+'</div><button class="go" onclick="next()">'+(last?"See my result":"Next →")+'</button>';
+ document.getElementById("fb").scrollIntoView({behavior:"smooth",block:"nearest"})}
+function next(){S.i++;if(S.i>=G[S.k].steps.length)end();else show()}
+function end(){var g=G[S.k],max=g.steps.length*2,p=Math.round(S.pts/max*100),r=g.res[0];
+ g.res.forEach(function(x){if(p>=x[0])r=x});
+ var other=S.k=="social"?"nursing":"social",og=G[other];
+ el('<div class="emoji">🎉</div><h1>'+r[1]+'</h1><p><b>You scored '+S.pts+' out of '+max+'</b></p><p>'+r[2]+'</p>'+
+ '<div class="cta"><b>Fancy a career like this?</b><p>Come and chat to the lecturers on our stand about Health &amp; Social Care courses at <b>South Lanarkshire College</b>, and find out how you could get started.</p></div>'+
+ '<button class="go" onclick="start(\''+other+'\')">Try the '+og.sub+' →</button><br><button class="ghost" onclick="start(\''+S.k+'\')">Play again</button><button class="ghost" onclick="home()">Home</button>')}
+home();
+</script>
+</body>
+</html>
